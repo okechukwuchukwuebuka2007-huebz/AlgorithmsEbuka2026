@@ -1,4 +1,5 @@
 package utils;
+import java.util.Arrays;
 import java.util.Scanner;
 public class ArrayUtils {         /**
  * Counts the elements in an array that are greater than a specified value.
@@ -165,6 +166,111 @@ public static double calcAverage(int[] numbers) {
             System.out.println("Position " + i + ": " + words[i]);
         }
     }
+
+    /**
+     * Creating a new merged array from two arrays
+     * @param nums the first array of numbers
+     * @param numbers the second array of numbers
+     * @return the new merged array
+     */
+
+
+    public static int[] merge(int[] nums, int[] numbers){
+        int[] merged = new int[nums.length + numbers.length];
+        for(int i = 0; i < nums.length; i++){
+            merged[i] = nums[i];
+        }
+        for(int i =0 ; i < numbers.length;i++){
+            merged[nums.length + i] = numbers[i];
+        }
+        return merged;
+    }
+
+    /**
+     *
+     * @param nums
+     * @param numbers
+     * @return
+     */
+    public static int[] orderMerge(int[] nums, int[] numbers){
+        int[] merged = new int[nums.length + numbers.length];
+        int i =0;
+        int j = 0;
+        int k = 0;
+        while(i < nums.length && j < numbers.length){
+            if (nums[i] <= numbers[j]){
+                merged[k++] = nums[i++];
+            }
+            else {
+                merged[k++] = numbers[j++];
+            }
+        }
+        while (i< nums.length ){
+            merged[k++] = nums[i++];
+        }
+
+        while (j < numbers.length){
+            merged[k++] = numbers[j++];
+        }
+        return merged;
+}
+public static String[] orderMerge(String[] words, String[] text){
+        String[] merged = new String[words.length + text.length];
+        int i = 0;
+        int j =0;
+        int k =0;
+        while ( i < words.length && j < text.length){
+            if(words[i].compareToIgnoreCase(text[j])<= 0){
+                merged[k++] = words[i++];
+            }
+            else{
+                merged[k++]= text[j++];
+            }
+        }
+        while ( i < words.length){
+            merged[k++] = words[i++];
+        }
+        while (j < text.length){
+            merged[k++] = text[j++];
+        }
+        return merged;
+}
+public static int[] partition(int[] nums, int point ){
+        int [] lower = new int[nums.length];
+        int [] higher = new int[nums.length];
+
+        int lowCount = 0;
+        int highCount = 0 ;
+        for (int num: nums ){
+            if (num <= point){
+                lower[lowCount++] = num;
+            }
+            else{/
+                higher[highCount++] = num;
+            }
+        }
+        lower = Arrays.copyOf(lower, lowCount);
+        higher = Arrays.copyOf(higher, highCount);
+        return merge (higher,lower);
+}
+public static String[] partition(String[] text, String point){
+        String[] lower = new String[text.length];
+        String[] higher = new String[text.length];
+        int lowCount=0;
+        int highCount =0;
+        for (String word : text){
+            if(word.compareToIgnoreCase(point)<=0){
+                lower[lowCount++]=word;
+            }
+            else{
+                higher[highCount++] = word;
+            }
+        }
+        lower = Arrays.copyOf(lower,lowCount);
+        higher = Arrays.copyOf(higher,highCount);
+        return orderedMerge(lower,higher);
+
+}
 }
 
 
